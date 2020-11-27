@@ -13,10 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('/future_events', 'HomeController@futureEvents')->name('future_events');
+Route::get('/past_events', 'HomeController@pastEvents')->name('past_events');
+    
+    Route::middleware('auth')->group(function(){
+        Route::resource('events', 'EventController');
+    });

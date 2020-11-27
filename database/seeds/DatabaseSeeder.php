@@ -19,6 +19,6 @@ use Illuminate\Database\Seeder;
         
          $this->call(CategoriesTableSeeder::class);
          
-         factory(App\Event::class, 20)->create();
+         factory(App\Event::class, 500)->create();
     }
 }

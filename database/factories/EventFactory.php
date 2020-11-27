@@ -15,7 +15,7 @@ $factory->define(Event::class, function (Faker $faker) {
 //    dd($startOn, $endOn);
     
     return [
-        'status' => rand(0,1),
+        'status' => rand(1,2),
         'language' => $faker->randomElement(['bg', 'en']),
         'start_on' => $startOn,
         'end_on' => $endOn,
