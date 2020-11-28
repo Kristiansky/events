@@ -23,19 +23,22 @@ class Event extends Model
         if($category_id)
             $events->where('category_id', '=', $category_id);
     
-        if($from)
+        if($from){
             $events->whereDate('start_on', '>=',  $from);
+        }
     
         if($to)
             $events->whereDate('start_on', '<=',  $to);
         
-        
-        $events->orderBy('start_on', 'asc');
-        $events->orderBy('id', 'desc');
 
         if($past == true){
+            $events->whereDate('start_on', '<',  date('Y-m-d'));
             $events->orderBy('start_on', 'desc');
             $events->orderBy('id', 'asc');
+        }else{
+            $events->whereDate('start_on', '>=',  date('Y-m-d'));
+            $events->orderBy('start_on', 'asc');
+            $events->orderBy('id', 'desc');
         }
         
         return $events->paginate(10);

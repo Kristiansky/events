@@ -11,7 +11,7 @@
             <div class="col-md-12">
                 @if($events->count() > 0)
                     <legend>Filter</legend>
-                    {!! Form::open(['method'=>'GET', 'route' => 'future_events']) !!}
+                    {!! Form::open(['method'=>'GET', 'route' => ['list_events', 0]]) !!}
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
@@ -81,7 +81,7 @@
                     </table>
                     <div class="row">
                         <div class="col-sm-12 text-center">
-                            {{$events->links()}}
+                            {{$events->appends(request()->input())->links()}}
                         </div>
                     </div>
                 @else

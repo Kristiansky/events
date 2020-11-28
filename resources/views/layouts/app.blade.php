@@ -34,10 +34,10 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('future_events') }}">{{ __('Future events') }}</a>
+                            <a class="nav-link" href="{{ route('list_events',[0]) }}">{{ __('Future events') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('past_events') }}">{{ __('Past events') }}</a>
+                            <a class="nav-link" href="{{ route('list_events',[1]) }}">{{ __('Past events') }}</a>
                         </li>
                     </ul>
 
