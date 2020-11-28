@@ -26,17 +26,18 @@ class Event extends Model
         return $this->belongsTo('App\Category');
     }
     
-    public static function filter($title = null, $category_id = null, $from = null, $to = null, $past = false, $language = 'en'){
-    
+    public static function filter($title = null, $status = null, $language = null, $category_id = null, $from = null, $to = null, $past = false){
         
         $events = Event::with('category');
-        
-//        $events->where('status', '=', 'active');
-//        $events->where('language', '=', $language);
-    
     
         if($title)
             $events->where('title', 'like', '%'.$title.'%');
+    
+        if($status)
+            $events->where('status', '=', $status);
+    
+        if($language)
+            $events->where('language', '=', $language);
         
         if($category_id)
             $events->where('category_id', '=', $category_id);

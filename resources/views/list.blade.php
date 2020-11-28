@@ -9,42 +9,54 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                @if($events->count() > 0)
-                    <legend>Filter {{$past ? __('Past') : __('Future')}} Events</legend>
-                    {!! Form::open(['method'=>'GET', 'route' => ['list_events', $past]]) !!}
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                {!! Form::label('title', 'Search by Title'); !!}
-                                {!! Form::text('title', isset($get_params['title']) ? $get_params['title'] : null, array('class'=>'form-control', 'placeholder' => 'Enter title')); !!}
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                {!! Form::label('category_id', 'Search by category'); !!}
-                                {!! Form::select('category_id', [''=>'Choose option'] + $categories, isset($get_params['category_id']) ? $get_params['category_id'] : null, array('class'=>'form-control')); !!}
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                {!! Form::label('from', 'From date'); !!}
-                                {!! Form::date('from', isset($get_params['from']) ? $get_params['from'] : null, array('class'=>'form-control', 'placeholder' => 'From date')); !!}
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                {!! Form::label('to', 'To date'); !!}
-                                {!! Form::date('to', isset($get_params['to']) ? $get_params['to'] : null, array('class'=>'form-control', 'placeholder' => 'To date')); !!}
-                            </div>
-                        </div>
-                        <div class="col-md-12 text-right">
-                            <div class="form-group">
-                                {!! Form::submit('Filter', array('class'=>'btn btn-primary')); !!}
-                            </div>
+                <legend>Filter {{$past ? __('Past') : __('Future')}} Events</legend>
+                {!! Form::open(['method'=>'GET', 'route' => ['list_events', $past]]) !!}
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            {!! Form::label('title', 'Search by Title'); !!}
+                            {!! Form::text('title', isset($get_params['title']) ? $get_params['title'] : null, array('class'=>'form-control', 'placeholder' => 'Enter title')); !!}
                         </div>
                     </div>
-                    {!! Form::close() !!}
-                    <hr/>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            {!! Form::label('status', 'Search by status'); !!}
+                            {!! Form::select('status', [''=>'Choose option', 'hidden' => 'Hidden', 'active' => 'Active'], isset($get_params['status']) ? $get_params['status'] : null, array('class'=>'form-control')); !!}
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            {!! Form::label('language', 'Language filter'); !!}
+                            {!! Form::select('language', [''=>'Choose', 'bg' => 'Bulgarian', 'en' => 'English'], isset($get_params['language']) ? $get_params['language'] : null, array('class'=>'form-control')); !!}
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            {!! Form::label('category_id', 'Search by category'); !!}
+                            {!! Form::select('category_id', [''=>'Choose option'] + $categories, isset($get_params['category_id']) ? $get_params['category_id'] : null, array('class'=>'form-control')); !!}
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            {!! Form::label('from', 'From date'); !!}
+                            {!! Form::date('from', isset($get_params['from']) ? $get_params['from'] : null, array('class'=>'form-control', 'placeholder' => 'From date')); !!}
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            {!! Form::label('to', 'To date'); !!}
+                            {!! Form::date('to', isset($get_params['to']) ? $get_params['to'] : null, array('class'=>'form-control', 'placeholder' => 'To date')); !!}
+                        </div>
+                    </div>
+                    <div class="col-md-12 text-right">
+                        <div class="form-group">
+                            {!! Form::submit('Filter', array('class'=>'btn btn-primary')); !!}
+                        </div>
+                    </div>
+                </div>
+                {!! Form::close() !!}
+                <hr/>
+                @if($events->count() > 0)
                     <legend>{{$past ? __('Past') : __('Future')}} Events</legend>
                     <table class="table table-hover table-striped">
                         <thead>

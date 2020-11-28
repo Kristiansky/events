@@ -25,6 +25,7 @@ class EventsRequest extends FormRequest
     {
         return [
             'title' => 'required|max:255',
+            'status' => 'required',
             'category_id' => 'required',
             'start_on' => 'required|date',
             'end_on' => 'required|date',

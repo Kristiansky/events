@@ -40,6 +40,8 @@ class HomeController extends Controller
     {
         $events = Event::filter(
             $request->get('title'),
+            $request->get('status'),
+            $request->get('language'),
             $request->get('category_id'),
             $request->get('from'),
             $request->get('to'),

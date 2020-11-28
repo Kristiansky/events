@@ -76,7 +76,7 @@ class EventController extends Controller
         $event = Event::findOrFail($id);
         $event->update($request->all());
         session()->flash('message_success', 'Successfully udpated.');
-        return redirect()->route('list_events', 0);
+        return redirect()->back();
     }
 
     /**
