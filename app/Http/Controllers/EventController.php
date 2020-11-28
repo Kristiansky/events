@@ -85,8 +85,12 @@ class EventController extends Controller
      * @param  \App\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Event $event)
+    public function destroy($id)
     {
-        //
+        $event = Event::findOrFail($id);
+        $event->delete();
+        session()->flash('message_success', 'Successfully deleted.');
+    
+        return redirect()->back();
     }
 }
