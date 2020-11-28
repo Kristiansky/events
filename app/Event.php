@@ -7,19 +7,37 @@ use Illuminate\Support\Facades\DB;
 
 class Event extends Model
 {
+    protected $fillable = [
+        'status',
+        'language',
+        'start_on',
+        'end_on',
+        'category_id',
+        'title',
+        'body',
+    ];
+    
+    /*public function newCollection(array $models = [])
+    {
+        return new Event($models);
+    }*/
+    
     public function category(){
         return $this->belongsTo('App\Category');
     }
     
-    public static function filter($category_id = null, $from = null, $to = null, $past = false, $language = 'en'){
+    public static function filter($title = null, $category_id = null, $from = null, $to = null, $past = false, $language = 'en'){
     
         
-        $events = DB::table('events');
+        $events = Event::with('category');
         
-        $events->where('status', '=', 'active');
-        $events->where('language', '=', $language);
+//        $events->where('status', '=', 'active');
+//        $events->where('language', '=', $language);
     
     
+        if($title)
+            $events->where('title', 'like', '%'.$title.'%');
+        
         if($category_id)
             $events->where('category_id', '=', $category_id);
     

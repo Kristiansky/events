@@ -18,7 +18,7 @@ class CreateEventsTable extends Migration
             $table->enum('status', ['hidden', 'active']);
             $table->string('language', 2);
             $table->date('start_on');
-            $table->date('end_on')->nullable();
+            $table->date('end_on');
             $table->integer('category_id')->index()->unsigned();
             $table->string('title');
             $table->text('body');

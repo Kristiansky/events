@@ -2,16 +2,16 @@
 
 @section('content')
     <div class="container">
-        {{--<div class="row">
+        <div class="row">
             <div class="col-md-10">
                 @include('includes.alerts')
             </div>
-        </div>--}}
+        </div>
         <div class="row">
             <div class="col-md-12">
                 @if($events->count() > 0)
-                    <legend>Filter</legend>
-                    {!! Form::open(['method'=>'GET', 'route' => ['list_events', 0]]) !!}
+                    <legend>Filter {{$past ? __('Past') : __('Future')}} Events</legend>
+                    {!! Form::open(['method'=>'GET', 'route' => ['list_events', $past]]) !!}
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
@@ -45,36 +45,42 @@
                     </div>
                     {!! Form::close() !!}
                     <hr/>
-                    <legend>People</legend>
+                    <legend>{{$past ? __('Past') : __('Future')}} Events</legend>
                     <table class="table table-hover table-striped">
                         <thead>
                         <tr>
                             <th>Title</th>
+                            <th>Status</th>
+                            <th>Language</th>
+                            <th>Category</th>
                             <th>Start date</th>
                             <th>End date</th>
-                            {{--@guest
+                            @guest
                             @else
                                 <th colspan="2" class="text-center">Actions</th>
-                            @endguest--}}
+                            @endguest
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($events as $event)
                             <tr>
-                                <td>{{$event->title}}</td>
+                                <td><a href="{{route('event', $event->id)}}" target="_blank">{{$event->title}} <i class="fa fa-external-link-square"></i> </a></td>
+                                <td>{{$event->status}}</td>
+                                <td>{{$event->language}}</td>
+                                <td>{{$event->category->name}}</td>
                                 <td>{{$event->start_on ? Carbon\Carbon::createFromDate($event->start_on)->format('d.m.Y') : ''}}</td>
                                 <td>{{$event->end_on ? Carbon\Carbon::createFromDate($event->end_on)->format('d.m.Y') : ''}}</td>
-                                {{--@guest
+                                @guest
                                 @else
                                     <td class="text-right">
-                                        <a href="{{route('people.edit', $person->id)}}" class="btn btn-sm btn-primary">{{__('Edit')}}</a>
+                                        <a href="{{route('events.edit', $event->id)}}" class="btn btn-sm btn-primary">{{__('Edit')}}</a>
                                     </td>
                                     <td class="text-right">
-                                        {!! Form::open(['method'=>'DELETE', 'route' => ['people.destroy', $person->id]]) !!}
+                                        {!! Form::open(['method'=>'DELETE', 'route' => ['events.destroy', $event->id]]) !!}
                                         {!! Form::submit('Delete', array('class'=>'btn btn-danger btn-sm')); !!}
                                         {!! Form::close() !!}
                                     </td>
-                                @endguest--}}
+                                @endguest
                             </tr>
                         @endforeach
                         </tbody>

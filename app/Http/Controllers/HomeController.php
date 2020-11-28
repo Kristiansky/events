@@ -30,10 +30,16 @@ class HomeController extends Controller
         return view('home');
     }
     
+    public function view($id)
+    {
+        $event = Event::findOrFail($id);
+        return view('event', compact('event'));
+    }
+    
     public function listEvents($past, Request $request)
     {
-        $get_params = $request->all();
         $events = Event::filter(
+            $request->get('title'),
             $request->get('category_id'),
             $request->get('from'),
             $request->get('to'),
@@ -41,7 +47,8 @@ class HomeController extends Controller
         );
     
         $categories = Category::pluck('name', 'id')->all();
+        $get_params = $request->all();
         
-        return view('list', compact('events', 'categories', 'get_params'));
+        return view('list', compact('events', 'categories', 'get_params', 'past'));
     }
 }

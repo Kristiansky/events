@@ -21,6 +21,6 @@ $factory->define(Event::class, function (Faker $faker) {
         'end_on' => $endOn,
         'category_id' => \App\Category::all()->random()->id,
         'title' => $faker->sentence(5),
-        'body' => $faker->realText(100)
+        'body' => $faker->realText(5000)
     ];
 });

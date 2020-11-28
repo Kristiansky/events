@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Event;
+use App\Http\Requests\EventsRequest;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -55,9 +57,11 @@ class EventController extends Controller
      * @param  \App\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function edit(Event $event)
+    public function edit($id)
     {
-        //
+        $event = Event::findOrFail($id);
+        $categories = Category::pluck('name', 'id')->all();
+        return view('events.edit', compact('event', 'categories'));
     }
 
     /**
@@ -67,9 +71,12 @@ class EventController extends Controller
      * @param  \App\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Event $event)
+    public function update(EventsRequest $request, $id)
     {
-        //
+        $event = Event::findOrFail($id);
+        $event->update($request->all());
+        session()->flash('message_success', 'Successfully udpated.');
+        return redirect()->route('list_events', 0);
     }
 
     /**
